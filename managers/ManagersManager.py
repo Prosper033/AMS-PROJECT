@@ -3,33 +3,41 @@ from models.Manager import Manager
 
 class ManagersManager:
 
-    managers = []
+    manager: Manager
 
-    def create_manager(self, first_name: str, middle_name: str, last_name: str, email: str, password: str):
-        manager_id = self.__get_id
-        manager = Manager(id=manager_id, last_name=last_name,
-                          email=email, password=password)
+    def create_manager(self, first_name: str, middle_name: str, last_name: str, phone_number: str, email: str, password: str):
+        self.manager = Manager(last_name=last_name, email=email, password=password)
+        self.manager.first_name = first_name
+        self.manager.middle_name = middle_name
+        self.manager.phone_number = phone_number
         return True
 
-    def update_manager(self, first_name: str, middle_name: str, last_name: str, email):
-        manager = self.__find(email)
-        if manager != None:
-            manager
-
-    def __get_id(self):
-        length = len(self.managers)
-        if length == 0:
-            length += 1
-            return length
+    def login(self, email, password):
+        if self.manager.email == email and self.manager.password == password:
+            return True
         else:
-            for manager in self.managers:
-                if manager.id == length:
-                    length += 1
-                    return length
+            return False
 
-    def __find(email):
-        for manager in self.managers:
-            if manager.email == email:
-                return manager
-            else:
-                return None
+    def update_manager(self, first_name: str, middle_name: str, last_name: str, email: str, phone_number: str):
+        if self.manager != None:
+            self.manager.first_name = first_name
+            self.manager.middle_name = middle_name
+            self.manager.last_name = last_name
+            self.manager.email = email
+            self.manager.phone_number = phone_number
+            return True
+        else:
+            return False
+
+    def change_password(self, new_password: str):
+        self.manager.password = new_password
+        return True
+
+    def view_details(self):
+        print(self.manager.id, '\t', self.manager.first_name, '\t', self.manager.last_name,
+              '\t', self.manager.email, '\t', self.manager.phone_number)
+
+
+
+
+
