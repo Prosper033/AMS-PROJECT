@@ -3,16 +3,15 @@ from typing import List
 
 
 class AccountHolderManager:
-
     account_holders: List[AccountHolder] = []
 
-    def register_account_holder(self, first_name: str, middle_name: str, last_name: str, email: str, password: str, confirm_password: str, phone_number: str):
+    def register_account_holder(self, first_name: str, last_name: str, email: str, password: str, confirm_password: str,
+                                phone_number: str):
         if password == confirm_password:
             owner_id = self.__get_id()
             owner = AccountHolder(id=owner_id, email=email,
                                   last_name=last_name, password=password)
             owner.first_name = first_name
-            owner.middle_name = middle_name
             owner.phone_number = phone_number
             self.account_holders.append(owner)
             return owner
@@ -26,11 +25,12 @@ class AccountHolderManager:
             else:
                 return False
 
-    def update_account_holder(self, email: str, first_name: str, middle_name: str, last_name: str, phone_number: str):
+    def update_account_holder(self, email: str, first_name: str, last_name: str, phone_number: str):
         account_holder = self.__find(email=email)
         account_holder.phone_number = phone_number
-
-
+        account_holder.first_name = first_name
+        account_holder.last_name = last_name
+        return True
 
     def change_password(self, email, password):
         account_holder = self.__find(email)
@@ -79,5 +79,4 @@ class AccountHolderManager:
 
     def __show(self, account_holder: AccountHolder):
         print(account_holder.id, '\t', account_holder.first_name, '',
-              account_holder.middle_name, '', account_holder.last_name, '\t', account_holder.email, '\t', account_holder.phone_number)
-
+              account_holder.last_name, '\t', account_holder.email, '\t', account_holder.phone_number)

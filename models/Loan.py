@@ -10,3 +10,5 @@ class Loan:
         self.loan_date = datetime.date.today()
         self.loan_amount = 0.0
         self.balance = 0.0
+        self.status = "inactive"
+        self.id = 0
