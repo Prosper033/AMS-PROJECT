@@ -11,4 +11,4 @@ class Account:
         self.account_type = None
         self.account_balance = 0
         self.date_of_creation = datetime.date.today()
-        self.account_status = 'inactive'
+        self.account_status = 'active'

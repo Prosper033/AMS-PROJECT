@@ -348,8 +348,7 @@ def handle_holder_overdraft_menu(action):
         account = account_manager.return_account(account_number=account_number, pin=pin)
         overdraft = overdraft_manager.get_overdraft(account=account, amount=amount)
         try:
-            if overdraft['see_manager']:
-                print(overdraft['see_manager'])
+            print(overdraft['see_manager'])
         except KeyError:
             print(overdraft['message'])
 

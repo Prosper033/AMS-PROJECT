@@ -6,6 +6,7 @@ from models.Account import Account
 
 
 class OverdraftManager:
+
     overdrafts: List[Overdraft] = []
 
     message = {}
@@ -14,8 +15,8 @@ class OverdraftManager:
         active_account = self.__is_account_active(account)
         if active_account is True:
             if amount <= 100000:
-                overdraft_inactive = self.__is_overdraft_inactive(account=account)
-                if overdraft_inactive is True:
+                overdraft_active = self.__is_overdraft_active(account_number=account.account_number)
+                if overdraft_active is False:
                     overdraft = Overdraft(account=account, amount=amount)
                     overdraft.id = self.__get_id()
                     overdraft.balance = account
@@ -76,13 +77,12 @@ class OverdraftManager:
         else:
             return False
 
-    def __is_overdraft_inactive(self, account_number: str):
+    def __is_overdraft_active(self, account_number: str):
         for overdraft in self.overdrafts:
             if overdraft.account.account_number == account_number:
-                if overdraft.status == "inactive":
+                if overdraft.status == "active":
                     return True
-                else:
-                    return False
+        return False
 
     def __get_id(self):
         length = len(self.overdrafts)
